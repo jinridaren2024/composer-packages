@@ -29,7 +29,11 @@ jobs:
 
       - name: Install Satis
         run: composer create-project composer/satis:^2.0 --stability=dev --no-dev
-
+        
+       # 👇👇👇 添加这一行：用真实的 Token 替换占位符 👇👇👇
+      - name: Replace GitHub Token
+        run: sed -i "s/GITHUB_TOKEN_PLACEHOLDER/${{ secrets.GITHUB_TOKEN }}/g" satis.json
+        
       - name: Build Satis Repository
         run: php satis/bin/satis build satis.json public/
 
