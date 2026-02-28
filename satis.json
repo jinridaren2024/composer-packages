@@ -1,18 +1,18 @@
 {
-    "name": "Jinridaren Private Packages",
-    "homepage": "https://jinridaren2024.github.io/composer-packages",
+    "name": "My Private Composer Repository",
+    "homepage": "https://your-username.github.io/composer-packages/",
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/jinridaren/money-calc.git"
+            "url": "https://github.com/your-username/money-calc.git"
         }
     ],
-    "require": {
-        "jinridaren/money-calc": "*"
-    },
-    "require-all": false,
+    "require-all": true,
     "output-dir": "public",
-    "config": {
-        "sort-packages": true
+    "archive": {
+        "directory": "dist",
+        "format": "zip",
+        "prefix-url": "https://your-username.github.io/composer-packages/",
+        "skip-dev": false
     }
 }
