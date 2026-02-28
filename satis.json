@@ -1,10 +1,10 @@
 {
     "name": "My Private Composer Repository",
-    "homepage": "https://your-username.github.io/composer-packages/",
+    "homepage": "https://github.com/jinridaren2024/composer-packages/",
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/your-username/money-calc.git"
+            "url": "https://github.com/jinridaren2024/money-calc.git"
         }
     ],
     "require-all": true,
@@ -12,7 +12,7 @@
     "archive": {
         "directory": "dist",
         "format": "zip",
-        "prefix-url": "https://your-username.github.io/composer-packages/",
+        "prefix-url": "https://github.com/jinridaren2024/composer-packages/",
         "skip-dev": false
     },
    
