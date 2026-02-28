@@ -1,0 +1,18 @@
+{
+    "name": "Jinridaren Private Packages",
+    "homepage": "https://jinridaren.github.io/composer-packages",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/jinridaren/money-calc.git"
+        }
+    ],
+    "require": {
+        "jinridaren/money-calc": "*"
+    },
+    "require-all": false,
+    "output-dir": "public",
+    "config": {
+        "sort-packages": true
+    }
+}
