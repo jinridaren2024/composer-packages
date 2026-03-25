@@ -15,7 +15,6 @@
         "prefix-url": "https://github.com/jinridaren2024/composer-packages/",
         "skip-dev": false
     },
-   
     "config": {
         "github-oauth": {
             "github.com": "GITHUB_TOKEN_PLACEHOLDER"
