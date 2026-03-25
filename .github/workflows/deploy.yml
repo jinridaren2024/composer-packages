@@ -6,7 +6,6 @@ on:
   repository_dispatch:
     types: [ satis-update ]
 
-# 权限配置
 permissions:
   contents: read
   pages: write
@@ -19,54 +18,44 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    # 步骤 1: 检出代码
-    - name: Checkout
-      uses: actions/checkout@v4
-    
-    # 步骤 2: 设置 PHP 环境
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: '8.2'
-    
-    # 步骤 3: 安装 Satis
-    - name: Install Satis
-      run: composer create-project composer/satis:^2.0 --stability=dev --no-dev
-    
-    # 步骤 4: 验证和替换 Token（增强安全性）
-    - name: Validate and Replace GitHub Token
-      run: |
-        # 检查 Token 是否已配置
-        if [ -z "${{ secrets.BOT_GITHUB_TOKEN }}" ]; then
-          echo "❌ 错误: BOT_GITHUB_TOKEN 未配置"
-          exit 1
-        fi
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Install Satis
+        run: composer create-project composer/satis:^2.0 --stability=dev --no-dev
         
-        # 安全替换 Token
-        sed -i "s/GITHUB_TOKEN_PLACEHOLDER/${{ secrets.BOT_GITHUB_TOKEN }}/g" satis.json
+      - name: Validate and Replace GitHub Token
+        run: |
+          if [ -z "${{ secrets.BOT_GITHUB_TOKEN }}" ]; then
+            echo "❌ Error: BOT_GITHUB_TOKEN is not configured"
+            exit 1
+          fi
+          
+          sed -i "s/GITHUB_TOKEN_PLACEHOLDER/${{ secrets.BOT_GITHUB_TOKEN }}/g" satis.json
+          
+          if grep -q "GITHUB_TOKEN_PLACEHOLDER" satis.json; then
+            echo "❌ Error: Token replacement failed"
+            exit 1
+          fi
         
-        # 验证替换是否成功
-        if grep -q "GITHUB_TOKEN_PLACEHOLDER" satis.json; then
-          echo "❌ 错误: Token 替换失败"
-          exit 1
-        fi
-    
-    # 步骤 5: 构建 Satis 仓库
-    - name: Build Satis Repository
-      env:
-        COMPOSER_MEMORY_LIMIT: -1
-      run: php satis/bin/satis build --no-ansi --verbose satis.json public/
-    
-    # 步骤 6: 配置 Pages
-    - name: Setup Pages
-      uses: actions/configure-pages@v4
-    
-    # 步骤 7: 上传制品
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v3
-      with:
-        path: './public'
+      - name: Build Satis Repository
+        env:
+          COMPOSER_MEMORY_LIMIT: -1
+        run: php satis/bin/satis build --no-ansi --verbose satis.json public/
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './public'
 
   deploy:
     environment:
