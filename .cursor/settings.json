@@ -1,0 +1,28 @@
+{
+  "plugins": {
+    "sentry": {
+      "enabled": true
+    },
+    "redis-development": {
+      "enabled": true
+    },
+    "pendo-analytics": {
+      "enabled": true
+    },
+    "amplitude": {
+      "enabled": true
+    },
+    "postman": {
+      "enabled": true
+    },
+    "clerk": {
+      "enabled": true
+    },
+    "pagerduty": {
+      "enabled": true
+    },
+    "browserstack": {
+      "enabled": true
+    }
+  }
+}
