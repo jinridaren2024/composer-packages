@@ -22,7 +22,7 @@
       "enabled": true
     },
     "browserstack": {
-      "enabled": false
+      "enabled": true
     }
   }
 }
